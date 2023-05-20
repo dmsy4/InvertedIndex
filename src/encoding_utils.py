@@ -1,5 +1,5 @@
-from typing import List, Iterable, Any
-from math import log2, floor
+from math import floor, log2
+from typing import Any, Iterable, List
 
 
 def _unary(x: int) -> str:

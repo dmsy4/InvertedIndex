@@ -8,13 +8,13 @@ MORPH = pymorphy2.MorphAnalyzer()
 nltk.download("stopwords")
 STOP_WORDS = nltk.corpus.stopwords.words("russian")
 STOP_WORDS.extend(nltk.corpus.stopwords.words("english"))
-STOP_WORDS.extend(
+STOP_WORDS.extend(  # добавим некоторые пунктуационные знаки из текстов
     [
         "«",
         "»",
         ".)",
         '?.."',
-        "..?",  # добавим некоторые пунктуационные знаки из текстов
+        "..?",
         "--",
         "…",
         "...",

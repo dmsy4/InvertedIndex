@@ -1,12 +1,14 @@
-import pandas as pd
-from typing import List, Union
-from tqdm.notebook import tqdm
 import sys
+from typing import List, Union
+
+import pandas as pd
+from tqdm.notebook import tqdm
+
 from encoding_utils import (
-    gamma_encode_seq,
+    delta_decode,
     delta_encode_seq,
     gamma_decode,
-    delta_decode,
+    gamma_encode_seq,
     identity,
 )
 from tokenizer import tokenize_text
@@ -74,18 +76,11 @@ class InvertedIndex:
         doc_ids = self._data_frames.post_id
         texts = self._data_frames.text
         for doc_id, text in tqdm(zip(doc_ids, texts), total=len(self._data_frames)):
-            # if doc_id == 50:
-            #     break
             doc_tokens = tokenize_text(text)
             last = 0
             for token in set(doc_tokens):
                 if token not in self.index:
                     self.index[token] = []
-                # if self._encode_differences:
-                #     delta_diff = doc_id - last
-                #     self.index[token].append(delta_diff)
-                #     last = doc_id
-                # else:
                 self.index[token].append(doc_id)
 
         if self._encode_differences:
