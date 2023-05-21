@@ -4,14 +4,14 @@ from typing import List, Union
 import pandas as pd
 from tqdm.notebook import tqdm
 
-from encoding_utils import (
+from .encoding_utils import (
     delta_decode,
     delta_encode_seq,
     gamma_decode,
     gamma_encode_seq,
     identity,
 )
-from tokenizer import tokenize_text
+from .tokenizer import tokenize_text
 
 
 class InvertedIndex:
@@ -55,15 +55,15 @@ class InvertedIndex:
         self._data_frames = None
         for csv_path in self._csv_paths:
             if self._data_frames is None:
-                self._data_frames = pd.read_csv(csv_path, index_col="Unnamed: 0")
+                self._data_frames = pd.read_csv(csv_path)
                 if "Unnamed: 0" in self._data_frames:
                     self._data_frames = self._data_frames.set_index(
                         "Unnamed: 0"
                     ).reset_index(drop=True)
             else:
-                df = pd.read_csv(csv_path, index_col="Unnamed: 0")
+                df = pd.read_csv(csv_path)
                 if "Unnamed: 0" in df:
-                    df = self._data_frames.set_index("Unnamed: 0").reset_index(
+                    df = df.set_index("Unnamed: 0").reset_index(
                         drop=True
                     )
                 self._data_frames = pd.concat([self._data_frames, df])
