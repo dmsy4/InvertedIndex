@@ -10,7 +10,7 @@ from src.encoding_utils import (
     _gamma_encode,
     identity,
 )
-from random import randint
+from random import randint, sample
 
 def test_encoding_utils():
     for _ in range(10):
@@ -32,5 +32,7 @@ def test_encoding_utils():
         assert _gamma_encode(A)
     A = 1
     assert _gamma_encode(1)
+    A = sample(range(1, 50000), 10)
+    assert A == gamma_decode(gamma_encode_seq(A))
 
 test_encoding_utils()
